@@ -159,6 +159,14 @@
 		"message": "Muster für Inhalt des Infoknopfs",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "Blockieren gemischter Inhalte",
+		"description": "Options page label: 'block mixed content'"
+	},
+	"optionSaveOriginalURLs": {
+		"message": "Speichern der Original-URLs von eingebetteten Ressourcen",
+		"description": "Options page label: 'save original URLs of embedded resources'"
+	},
 	"optionIncludeInfobar": {
 		"message": "Einfügen Inhalt des Infoknopfs in die gespeicherte Seite",
 		"description": "Options page label: 'include the infobar in the saved page'"
@@ -270,6 +278,10 @@
 	"optionCompressCSS": {
 		"message": "CSS-Inhalte komprimieren",
 		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionMoveStylesInHead": {
+		"message": "Die Stile, die sich außerhalb des Head-Elements befinden, in dieses verschieben",
+		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
 		"message": "Nicht verwendete Stile entfernen",
@@ -495,6 +507,10 @@
 		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
+	"optionWoleetKey": {
+		"message": "access token",
+		"description": "Options page label: 'access token'"
+	},
 	"optionSaveToGDrive": {
 		"message": "In Google Drive speichern",
 		"description": "Options page label: 'upload to Google Drive'"
@@ -719,13 +735,13 @@
 		"message": "Cancel all",
 		"description": "Pending saves button 'Cancel all'"
 	},
-	"pendingsTitleTitle": {
-		"message": "Titel",
-		"description": "Title of the first column in the table of the pending saves 'Title'"
-	},
 	"pendingsURLTitle": {
 		"message": "URL",
 		"description": "Title of the first column in the table of the pending saves 'URL'"
+	},
+	"pendingsTitleTitle": {
+		"message": "Titel",
+		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsStatusTitle": {
 		"message": "status",

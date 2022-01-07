@@ -23,7 +23,7 @@
 
 /* global browser, navigator, URL, Blob */
 
-import * as downloads from "./downloads.js";
+import { download } from "./download-util.js";
 import * as tabsData from "./tabs-data.js";
 
 const CURRENT_PROFILE_NAME = "-";
@@ -111,7 +111,18 @@ const DEFAULT_CONFIG = {
 	insertMetaNoIndex: false,
 	insertMetaCSP: true,
 	passReferrerOnError: false,
-	insertSingleFileComment: true
+	insertSingleFileComment: true,
+	blockMixedContent: false,
+	saveOriginalURLs: false,
+	acceptHeaders: {
+		font: "application/font-woff2;q=1.0,application/font-woff;q=0.9,*/*;q=0.8",
+		image: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+		stylesheet: "text/css,*/*;q=0.1",
+		script: "*/*",
+		document: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+	},
+	moveStylesInHead: false,
+	woleetKey: ""
 };
 
 let configStorage;
@@ -464,7 +475,7 @@ async function exportConfig() {
 		saveAs: true
 	};
 	try {
-		await downloads.download(downloadInfo, "_");
+		await download(downloadInfo, "_");
 	} finally {
 		URL.revokeObjectURL(url);
 	}

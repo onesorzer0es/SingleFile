@@ -47,10 +47,6 @@
 		"message": "現在のドメインのプロファイルを選択",
 		"description": "Menu entry: 'Select the profile of the current domain'"
 	},
-	"menuSaveTabs": {
-		"message": "タブを保存",
-		"description": "Menu entry (SingleFile button only): 'Save tabs'"
-	},
 	"menuSaveSelection": {
 		"message": "選択を保存",
 		"description": "Menu entry: 'Save selection'"
@@ -58,6 +54,10 @@
 	"menuSaveFrame": {
 		"message": "フレームを保存",
 		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "タブを保存",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
 	},
 	"menuSaveSelectedTabs": {
 		"message": "選択したタブを保存",
@@ -158,6 +158,14 @@
 	"optionInfobarTemplate": {
 		"message": "infobar コンテンツのテンプレート",
 		"description": "Options page label: 'template of the infobar content'"
+	},
+	"optionBlockMixedContent": {
+		"message": "block mixed content",
+		"description": "Options page label: 'block mixed content'"
+	},
+	"optionSaveOriginalURLs": {
+		"message": "save original URLs of embedded resources",
+		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
 		"message": "保存されたページに、infobar を含める",
@@ -270,6 +278,10 @@
 	"optionCompressCSS": {
 		"message": "CSS コンテンツを圧縮する",
 		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionMoveStylesInHead": {
+		"message": "move in the head element the styles found outside of it",
+		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
 		"message": "未使用のスタイルを削除する",
@@ -495,6 +507,10 @@
 		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
+	"optionWoleetKey": {
+		"message": "access token",
+		"description": "Options page label: 'access token'"
+	},
 	"optionSaveToGDrive": {
 		"message": "Google Drive に保存",
 		"description": "Options page label: 'upload to Google Drive'"
@@ -719,13 +735,13 @@
 		"message": "すべてをキャンセルする",
 		"description": "Pending saves button 'Cancel all'"
 	},
-	"pendingsTitleTitle": {
-		"message": "タイトル",
-		"description": "Title of the first column in the table of the pending saves 'Title'"
-	},
 	"pendingsURLTitle": {
 		"message": "URL",
 		"description": "Title of the first column in the table of the pending saves 'URL'"
+	},
+	"pendingsTitleTitle": {
+		"message": "タイトル",
+		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsStatusTitle": {
 		"message": "状態",

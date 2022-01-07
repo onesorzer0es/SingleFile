@@ -111,4 +111,18 @@ export default [{
 		format: "iife",
 		plugins: [terser()]
 	}]
+}, {
+	input: ["extension/core/bg/index.js"],
+	output: [{
+		file: "dist/extension-background.js",
+		format: "iife",
+		plugins: [terser()]
+	}]
+}, {
+	input: ["extension/lib/single-file/background.js"],
+	output: [{
+		file: "dist/single-file-background.js",
+		format: "iife",
+		plugins: [terser()]
+	}]
 }];

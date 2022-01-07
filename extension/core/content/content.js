@@ -26,6 +26,7 @@
 import * as download from "./../common/download.js";
 import { fetch, frameFetch } from "./../../lib/single-file/fetch/content/content-fetch.js";
 import * as ui from "./../../ui/content/content-ui.js";
+import { onError } from "./../../ui/common/content-error.js";
 
 const singlefile = globalThis.singlefile;
 const bootstrap = globalThis.singlefileBootstrap;
@@ -36,7 +37,7 @@ let processor, processing;
 
 singlefile.init({ fetch, frameFetch });
 browser.runtime.onMessage.addListener(message => {
-	if (message.method == "content.save" || message.method == "content.cancelSave" || message.method == "content.getSelectedLinks") {
+	if (message.method == "content.save" || message.method == "content.cancelSave" || message.method == "content.getSelectedLinks" || message.method == "content.error") {
 		return onMessage(message);
 	}
 });
@@ -63,6 +64,9 @@ async function onMessage(message) {
 				urls: ui.getSelectedLinks()
 			};
 		}
+		if (message.method == "content.error") {
+			onError(message.error, message.link);
+		}
 	}
 }
 
@@ -83,6 +87,7 @@ async function savePage(message) {
 			if (bootstrap) {
 				bootstrap.pageInfo.processing = true;
 			}
+			processing = true;
 			try {
 				const pageData = await processPage(options);
 				if (pageData) {

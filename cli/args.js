@@ -30,7 +30,15 @@ const args = require("yargs")
 		yargs.positional("output", { description: "Output filename", type: "string" });
 	})
 	.default({
+		"accept-headers": {
+			"font": "application/font-woff2;q=1.0,application/font-woff;q=0.9,*/*;q=0.8",
+			"image": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+			"stylesheet": "text/css,*/*;q=0.1",
+			"script": "*/*",
+			"document": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+		},
 		"back-end": "puppeteer",
+		"block-mixed-content": false,
 		"browser-server": "",
 		"browser-headless": true,
 		"browser-executable-path": "",
@@ -50,18 +58,22 @@ const args = require("yargs")
 		"compress-CSS": false,
 		"compress-HTML": true,
 		"dump-content": false,
+		"emulateMediaFeature": [],
 		"filename-template": "{page-title} ({date-iso} {time-locale}).html",
 		"filename-conflict-action": "uniquify",
 		"filename-replacement-character": "_",
+		"filename-max-length": 192,
 		"group-duplicate-images": true,
 		"http-header": [],
 		"include-infobar": false,
 		"load-deferred-images": true,
 		"load-deferred-images-max-idle-time": 1500,
 		"load-deferred-images-keep-zoom-level": false,
-		"maxParallelWorkers": 8,
+		"max-parallel-workers": 8,
 		"max-resource-size-enabled": false,
 		"max-resource-size": 10,
+		"move-styles-in-head": false,
+		"output-directory": "",
 		"remove-hidden-elements": true,
 		"remove-unused-styles": true,
 		"remove-unused-fonts": true,
@@ -73,6 +85,7 @@ const args = require("yargs")
 		"remove-alternative-fonts": true,
 		"remove-alternative-medias": true,
 		"remove-alternative-images": true,
+		"save-original-urls": false,
 		"save-raw-page": false,
 		"web-driver-executable-path": "",
 		"user-script-enabled": true,
@@ -83,11 +96,12 @@ const args = require("yargs")
 		"crawl-max-depth": 1,
 		"crawl-external-links-max-depth": 1,
 		"crawl-replace-urls": false,
-		"crawl-rewrite-rule": [],
-		"output-directory": ""
+		"crawl-rewrite-rule": []		
 	})
 	.options("back-end", { description: "Back-end to use" })
 	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko", "puppeteer-firefox", "playwright-firefox", "playwright-chromium"])
+	.options("block-mixed-content", { description: "Block mixed contents" })
+	.boolean("block-mixed-content")
 	.options("browser-server", { description: "Server to connect to (puppeteer only for now)" })
 	.string("browser-server")
 	.options("browser-headless", { description: "Run the browser in headless mode (puppeteer, webdriver-gecko, webdriver-chromium)" })
@@ -146,8 +160,10 @@ const args = require("yargs")
 	.boolean("crawl-replace-urls")
 	.options("crawl-rewrite-rule", { description: "Rewrite rule used to rewrite URLs of crawled pages" })
 	.array("crawl-rewrite-rule")
-	.options("dump-content", { description: "Dump the content of the processed page in the console" })
+	.options("dump-content", { description: "Dump the content of the processed page in the console ('true' when running in Docker)" })
 	.boolean("dump-content")
+	.options("emulate-media-feature", { description: "Emulate a media feature. The syntax is <name>:<value>, e.g. \"prefers-color-scheme:dark\" (puppeteer)" })
+	.array("emulate-media-feature")
 	.options("error-file")
 	.string("error-file")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
@@ -156,7 +172,8 @@ const args = require("yargs")
 	.string("filename-conflict-action")
 	.options("filename-replacement-character", { description: "The character used for replacing invalid characters in filenames" })
 	.string("filename-replacement-character")
-	.string("filename-replacement-character")
+	.options("filename-max-length", { description: "Specify the maximum length in bytes of the filename " })
+	.string("filename-max-length")
 	.options("group-duplicate-images", { description: "Group duplicate images into CSS custom properties" })
 	.boolean("group-duplicate-images")
 	.options("http-header", { description: "Extra HTTP header (puppeteer, jsdom)" })
@@ -177,6 +194,8 @@ const args = require("yargs")
 	.boolean("max-resource-size-enabled")
 	.options("max-resource-size", { description: "Maximum size of embedded resources in MB (i.e. images, stylesheets, scripts and iframes)" })
 	.number("max-resource-size")
+	.options("move-styles-in-head", { description: "Move style elements outside the head element into the head element" })
+	.boolean("move-styles-in-head")
 	.options("remove-frames", { description: "Remove frames (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("remove-frames")
 	.options("remove-hidden-elements", { description: "Remove HTML elements which are not displayed" })
@@ -199,6 +218,8 @@ const args = require("yargs")
 	.boolean("remove-alternative-medias")
 	.options("remove-alternative-images", { description: "Remove images for alternative sizes of screen" })
 	.boolean("remove-alternative-images")
+	.options("save-original-urls", { description: "Save the original URLS in the embedded contents" })
+	.boolean("save-original-urls")
 	.options("save-raw-page", { description: "Save the original page without interpreting it into the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("save-raw-page")
 	.options("urls-file", { description: "Path to a text file containing a list of URLs (separated by a newline) to save" })
@@ -249,6 +270,15 @@ args.browserStylesheets = args.browserStylesheet;
 delete args.browserStylesheet;
 args.crawlRewriteRules = args.crawlRewriteRule;
 delete args.crawlRewriteRule;
+args.emulateMediaFeatures = args.emulateMediaFeature
+	.map(value => {
+		const splitValue = value.match(/^([^:]+):(.*)$/);
+		if (splitValue.length >= 3) {
+			return { name: splitValue[1].trim(), value: splitValue[2].trim() };
+		}
+	})
+	.filter(identity => identity);
+delete args.emulateMediaFeature;
 Object.keys(args).filter(optionName => optionName.includes("-"))
 	.forEach(optionName => delete args[optionName]);
 delete args["$0"];

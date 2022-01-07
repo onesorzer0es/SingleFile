@@ -272,6 +272,14 @@ async function capturePage(options) {
 }
 
 function getFilename(filename, options, index = 1) {
+	if (Array.isArray(options.outputDirectory)) {
+		const outputDirectory = options.outputDirectory.pop();
+		if (outputDirectory.startsWith("/")) {
+			options.outputDirectory = outputDirectory;
+		} else {
+			options.outputDirectory = options.outputDirectory[0] + outputDirectory;
+		}
+	}
 	let outputDirectory = options.outputDirectory || "";
 	if (outputDirectory && !outputDirectory.endsWith("/")) {
 		outputDirectory += "/";
@@ -283,7 +291,7 @@ function getFilename(filename, options, index = 1) {
 		const regExpMatchExtension = /(\.[^.]+)$/;
 		const matchExtension = newFilename.match(regExpMatchExtension);
 		if (matchExtension && matchExtension[1]) {
-			newFilename = newFilename.replace(regExpMatchExtension, " (" + index + matchExtension[1]) + ")";
+			newFilename = newFilename.replace(regExpMatchExtension, " (" + index + ")" + matchExtension[1]);
 		} else {
 			newFilename += " (" + index + ")";
 		}

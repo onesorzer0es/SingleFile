@@ -21,16 +21,16 @@
  *   Source.
  */
 
-/* global browser */
+import * as config from "./config.js";
+import { autoSaveIsEnabled } from "./autosave-util.js";
 
 export {
-	onMessage
+	onMessage	
 };
 
-async function onMessage(message) {
-	if (message.method.endsWith(".resourceCommitted")) {
-		if (message.tabId && message.url && (message.type == "stylesheet" || message.type == "script")) {
-			await browser.tabs.sendMessage(message.tabId, message);
-		}
+async function onMessage(message, sender) {
+	if (message.method.endsWith(".init")) {
+		const [options, autoSaveEnabled] = await Promise.all([config.getOptions(sender.tab.url, true), autoSaveIsEnabled(sender.tab)]);
+		return { options, autoSaveEnabled, tabId: sender.tab.id, tabIndex: sender.tab.index };
 	}
 }

@@ -24,6 +24,7 @@
 /* global browser */
 
 import * as config from "./config.js";
+import * as bootstrap from "./bootstrap.js";
 import * as autosave from "./autosave.js";
 import * as bookmarks from "./bookmarks.js";
 import * as companion from "./companion.js";
@@ -34,6 +35,7 @@ import * as requests from "./requests.js";
 import * as tabsData from "./tabs-data.js";
 import * as tabs from "./tabs.js";
 import * as ui from "./../../ui/bg/index.js";
+import "./../../lib/single-file/background.js";
 
 browser.runtime.onMessage.addListener((message, sender) => {
 	if (message.method.startsWith("tabs.")) {
@@ -69,11 +71,14 @@ browser.runtime.onMessage.addListener((message, sender) => {
 	if (message.method.startsWith("requests.")) {
 		return requests.onMessage(message, sender);
 	}
+	if (message.method.startsWith("bootstrap.")) {
+		return bootstrap.onMessage(message, sender);
+	}
 });
 if (browser.runtime.onMessageExternal) {
 	browser.runtime.onMessageExternal.addListener(async (message, sender) => {
-		const allTabs = await tabs.get({ currentWindow: true, active: true });
-		const currentTab = allTabs[0];
+		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
+		const currentTab = tabs[0];
 		if (currentTab) {
 			return autosave.onMessageExternal(message, currentTab, sender);
 		} else {

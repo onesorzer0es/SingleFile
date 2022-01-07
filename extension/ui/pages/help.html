@@ -219,6 +219,20 @@
 							considerably reduce the size of the file without altering the document most of the time. It
 							may also decrease the time needed to save a page.</p>
 					</li>
+					<li data-options-label="blockMixedContentLabel"> <span class="option"></span>Option: block mixed
+						contents</span>
+						<p>Check this option to block active content served from HTTP when viewing a page in HTTPS. You
+							can find more information about mixed content pages <a
+								href="https://developer.mozilla.org/docs/Web/Security/Mixed_content"
+								target="_blank">here</a>.</p>
+					</li>
+					<li data-options-label="saveOriginalURLsLabel"> <span class="option"></span>Option: save original
+						URLs of embedded resources</span>
+						<p>Check this option to save the URLs of the resources embedded into the saved page. URLs
+							are stored in attributes with a name prefixed with "data-sf-original-" and suffixed with the
+							original attribute name (e.g. "data-sf-original-src", "data-sf-original-href") for HTML
+							contents. For CSS contents, URLs are stored as comments beginning with "original URL:".
+					</li>
 					<li data-options-label="includeInfobarLabel"> <span class="option"></span>Option: include infobar in
 						the saved page</span>
 						<p>Check this
@@ -252,6 +266,14 @@
 						<p>Check this option to minify CSS stylesheets. Checking this option can reduce size of the file
 							without altering the document. It may also increase the CPU consumption and the time needed
 							to save a page.</p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
+					<li data-options-label="moveStylesInHeadLabel"> <span class="option">Option: move in the head
+							element the styles found outside of it</span>
+						<p>
+							Check this option to move all the style elements found outside the head element into the
+							head element. This can be useful to avoid a FOUC ("flash of unstyled content") when
+							displaying a saved page.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 				</ul>
@@ -545,6 +567,10 @@
 						</ul>
 						<p> More information <a href="https://doc.woleet.io" target="_blank">doc.woleet.io</a> </p>
 					</li>
+					<li data-options-label="woleetKeyLabel" hidden> <span class="option">Option: access token</span>
+						<p>Enter your personal access token on Woleet, see the <a href="http://app.woleet.io/"
+								target="_blank">registration page</a> on Woleet for more information.</p>
+					</li>
 					<li data-options-label="backgroundSaveLabel"> <span class="option">Option: save pages in
 							background</span>
 						<p>Uncheck this option if you get invalid file names like
@@ -705,6 +731,8 @@
 					<li><code>{visit-seconds-locale}</code>: the localized value of the seconds (e.g. "31")</li>
 					<li><code>{url-href}</code>: the URL of the page (e.g. "http://example.com/category/index.html")
 					</li>
+					<li><code>{url-href-digest-sha-1}</code>: the SHA-1 hash value of the URL of the page (e.g.
+						4b826844d9f5c128533e4ff14d746334f3ac9e00)</li>
 					<li><code>{url-href-flat}</code>: the URL of the page with replaced slashes (e.g.
 						"http__example.com_category_index.html")</li>
 					<li><code>{url-pathname}</code>: the path name of the URL (e.g. "category/index.html")</li>
@@ -813,12 +841,16 @@
 							href="https://github.com/KrasnayaPloshchad" target="_blank">GitHub
 							profile</a>), frostblazergit (<a href="https://github.com/frostblazergit"
 							target="_blank">GitHub profile</a>), NightSharp (<a href="https://github.com/NightSharp"
+							target="_blank">GitHub profile</a>), lqzhgood (<a href="https://github.com/lqzhgood"
 							target="_blank">GitHub profile</a>) </li>
 					<li>Traditional Chinese translation done by frostblazergit (<a
-							href="https://github.com/frostblazergit" target="_blank">GitHub profile</a>)</li>
+							href="https://github.com/frostblazergit" target="_blank">GitHub profile</a>), lqzhgood (<a
+							href="https://github.com/lqzhgood" target="_blank">GitHub profile</a>)</li>
 					<li>German translation done by womotroll (<a href="https://github.com/womotroll"
 							target="_blank">GitHub profile</a>), bannmann (<a href="https://github.com/bannmann"
 							target="_blank">GitHub profile</a>) </li>
+					<li>Italian translation done by Fastbyte01 (<a href="https://github.com/Fastbyte01"
+							target="_blank">GitHub profile</a>)</li>
 					<li>Japanese translation, done by Shitennouji （四天王寺) (<a href="https://github.com/Shitennouji"
 							target="_blank">GitHub profile</a>)</li>
 					<li>Polish translation done by xesarni (<a href="https://github.com/xesarni" target="_blank">GitHub

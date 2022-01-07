@@ -1,6 +1,8 @@
 #!/bin/sh
 npx rollup -c rollup.config.js
 
+zip -r singlefile-extension-source.zip manifest.json package.json _locales extension common lib rollup*.js .eslintrc.js build-extension.sh
+
 rm singlefile-extension-firefox.zip singlefile-extension-chromium.zip singlefile-extension-edge.zip
 cp manifest.json manifest.copy.json
 cp extension/core/bg/downloads.js downloads.copy.js

@@ -24,7 +24,6 @@
 /* global browser */
 
 import * as config from "./config.js";
-import * as tabs from "./tabs.js";
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 const EDITOR_PAGE_URL = "/extension/ui/pages/editor.html";
@@ -45,7 +44,7 @@ async function open({ tabIndex, content, filename }) {
 	if (tabIndex != null) {
 		createTabProperties.index = tabIndex;
 	}
-	const tab = await tabs.create(createTabProperties);
+	const tab = await browser.tabs.create(createTabProperties);
 	tabsData.set(tab.id, { content, filename });
 }
 
@@ -61,8 +60,8 @@ async function onMessage(message, sender) {
 	if (message.method.endsWith(".getTabData")) {
 		const tab = sender.tab;
 		const tabData = tabsData.get(tab.id);
-		const options = await config.getOptions(tabData.url);
 		if (tabData) {
+			const options = await config.getOptions(tabData.url);
 			const content = JSON.stringify(tabData);
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
 				const message = {
@@ -76,7 +75,7 @@ async function onMessage(message, sender) {
 					message.content = content;
 					message.options = options;
 				}
-				await tabs.sendMessage(tab.id, message);
+				await browser.tabs.sendMessage(tab.id, message);
 			}
 		}
 	}
@@ -98,7 +97,7 @@ async function onMessage(message, sender) {
 		}
 		if (!message.truncated || message.finished) {
 			const updateTabProperties = { url: EDITOR_PAGE_URL };
-			await tabs.update(tab.id, updateTabProperties);
+			await browser.tabs.update(tab.id, updateTabProperties);
 			tabsData.set(tab.id, { url: tab.url, content: contents.join(""), filename: message.filename });
 		}
 	}

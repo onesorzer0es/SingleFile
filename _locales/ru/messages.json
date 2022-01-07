@@ -159,6 +159,14 @@
 		"message": "шаблон содержимого информационной панели",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "блокировать смешанное содержимое",
+		"description": "Options page label: 'block mixed content'"
+	},
+	"optionSaveOriginalURLs": {
+		"message": "сохранять оригинальные URL встроенных ресурсов",
+		"description": "Options page label: 'save original URLs of embedded resources'"
+	},
 	"optionIncludeInfobar": {
 		"message": "добавить информационную панель в сохраняемую страницу",
 		"description": "Options page label: 'include the infobar in the saved page'"
@@ -270,6 +278,10 @@
 	"optionCompressCSS": {
 		"message": "сжать содержимое CSS",
 		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionMoveStylesInHead": {
+		"message": "переместить в основной элемент стили, найденные вне него",
+		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
 		"message": "удалить неиспользуемые стили",
@@ -495,6 +507,10 @@
 		"message": "Подтвердите, что разрешаете SingleFile отправлять в Woleet API SHA256-хеш каждой сохраняемой вами страницы. Дополнительную информацию об этой функции можно найти на странице помощи или нажав на знак вопроса рядом с параметром.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
+	"optionWoleetKey": {
+		"message": "токен доступа",
+		"description": "Options page label: 'access token'"
+	},
 	"optionSaveToGDrive": {
 		"message": "загрузить на Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
@@ -520,7 +536,7 @@
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithCompanion": {
-		"message": "сохранить с помощью SingleFile Companion",
+		"message": "сохранять с помощью SingleFile Companion",
 		"description": "Options page label: 'save with SingleFile Companion'"
 	},
 	"optionSaveCreatedBookmarks": {
@@ -719,13 +735,13 @@
 		"message": "Отменить все",
 		"description": "Pending saves button 'Cancel all'"
 	},
-	"pendingsTitleTitle": {
-		"message": "Заголовок",
-		"description": "Title of the first column in the table of the pending saves 'Title'"
-	},
 	"pendingsURLTitle": {
 		"message": "URL",
 		"description": "Title of the first column in the table of the pending saves 'URL'"
+	},
+	"pendingsTitleTitle": {
+		"message": "Заголовок",
+		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsStatusTitle": {
 		"message": "статус",

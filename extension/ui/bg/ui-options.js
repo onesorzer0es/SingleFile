@@ -38,6 +38,7 @@ const insertMetaCSPLabel = document.getElementById("insertMetaCSPLabel");
 const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
 const saveToFilesystemLabel = document.getElementById("saveToFilesystemLabel");
 const addProofLabel = document.getElementById("addProofLabel");
+const woleetKeyLabel = document.getElementById("woleetKeyLabel");
 const saveToGDriveLabel = document.getElementById("saveToGDriveLabel");
 const saveToGitHubLabel = document.getElementById("saveToGitHubLabel");
 const githubTokenLabel = document.getElementById("githubTokenLabel");
@@ -47,6 +48,7 @@ const githubBranchLabel = document.getElementById("githubBranchLabel");
 const saveWithCompanionLabel = document.getElementById("saveWithCompanionLabel");
 const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 const compressCSSLabel = document.getElementById("compressCSSLabel");
+const moveStylesInHeadLabel = document.getElementById("moveStylesInHeadLabel");
 const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel");
 const loadDeferredImagesMaxIdleTimeLabel = document.getElementById("loadDeferredImagesMaxIdleTimeLabel");
 const loadDeferredImagesKeepZoomLevelLabel = document.getElementById("loadDeferredImagesKeepZoomLevelLabel");
@@ -112,6 +114,8 @@ const defaultEditorModeLabel = document.getElementById("defaultEditorModeLabel")
 const applySystemThemeLabel = document.getElementById("applySystemThemeLabel");
 const warnUnsavedPageLabel = document.getElementById("warnUnsavedPageLabel");
 const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
+const blockMixedContentLabel = document.getElementById("blockMixedContentLabel");
+const saveOriginalURLsLabel = document.getElementById("saveOriginalURLsLabel");
 const includeInfobarLabel = document.getElementById("includeInfobarLabel");
 const miscLabel = document.getElementById("miscLabel");
 const helpLabel = document.getElementById("helpLabel");
@@ -134,6 +138,7 @@ const saveRawPageInput = document.getElementById("saveRawPageInput");
 const insertMetaCSPInput = document.getElementById("insertMetaCSPInput");
 const saveToClipboardInput = document.getElementById("saveToClipboardInput");
 const addProofInput = document.getElementById("addProofInput");
+const woleetKeyInput = document.getElementById("woleetKeyInput");
 const saveToGDriveInput = document.getElementById("saveToGDriveInput");
 const saveToGitHubInput = document.getElementById("saveToGitHubInput");
 const githubTokenInput = document.getElementById("githubTokenInput");
@@ -144,6 +149,7 @@ const saveWithCompanionInput = document.getElementById("saveWithCompanionInput")
 const saveToFilesystemInput = document.getElementById("saveToFilesystemInput");
 const compressHTMLInput = document.getElementById("compressHTMLInput");
 const compressCSSInput = document.getElementById("compressCSSInput");
+const moveStylesInHeadInput = document.getElementById("moveStylesInHeadInput");
 const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput");
 const loadDeferredImagesMaxIdleTimeInput = document.getElementById("loadDeferredImagesMaxIdleTimeInput");
 const loadDeferredImagesKeepZoomLevelInput = document.getElementById("loadDeferredImagesKeepZoomLevelInput");
@@ -179,6 +185,8 @@ const allowedBookmarkFoldersInput = document.getElementById("allowedBookmarkFold
 const ignoredBookmarkFoldersInput = document.getElementById("ignoredBookmarkFoldersInput");
 const groupDuplicateImagesInput = document.getElementById("groupDuplicateImagesInput");
 const infobarTemplateInput = document.getElementById("infobarTemplateInput");
+const blockMixedContentInput = document.getElementById("blockMixedContentInput");
+const saveOriginalURLsInput = document.getElementById("saveOriginalURLsInput");
 const includeInfobarInput = document.getElementById("includeInfobarInput");
 const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 const autoCloseInput = document.getElementById("autoCloseInput");
@@ -407,14 +415,17 @@ removeScriptsInput.addEventListener("click", () => {
 }, false);
 saveCreatedBookmarksInput.addEventListener("click", saveCreatedBookmarks, false);
 passReferrerOnErrorInput.addEventListener("click", passReferrerOnError, false);
-autoSaveExternalSaveInput.addEventListener("click", enableExternalSave, false);
+autoSaveExternalSaveInput.addEventListener("click", () => enableExternalSave(autoSaveExternalSaveInput), false);
+saveWithCompanionInput.addEventListener("click", () => enableExternalSave(saveWithCompanionInput), false);
 saveToFilesystemInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
 saveToClipboardInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
+saveWithCompanionInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
 addProofInput.addEventListener("click", async event => {
 	if (addProofInput.checked) {
 		addProofInput.checked = false;
 		if (await confirm(browser.i18n.getMessage("optionsAddProofConfirm"), event.clientY - 100)) {
 			addProofInput.checked = true;
+			woleetKeyInput.disabled = false;
 		}
 		await update();
 	}
@@ -476,6 +487,7 @@ insertMetaCSPLabel.textContent = browser.i18n.getMessage("optionInsertMetaCSP");
 saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboard");
 saveToFilesystemLabel.textContent = browser.i18n.getMessage("optionSaveToFilesystem");
 addProofLabel.textContent = browser.i18n.getMessage("optionAddProof");
+woleetKeyLabel.textContent = browser.i18n.getMessage("optionWoleetKey");
 saveToGDriveLabel.textContent = browser.i18n.getMessage("optionSaveToGDrive");
 saveToGitHubLabel.textContent = browser.i18n.getMessage("optionSaveToGitHub");
 githubTokenLabel.textContent = browser.i18n.getMessage("optionGitHubToken");
@@ -485,6 +497,7 @@ githubBranchLabel.textContent = browser.i18n.getMessage("optionGitHubBranch");
 saveWithCompanionLabel.textContent = browser.i18n.getMessage("optionSaveWithCompanion");
 compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
+moveStylesInHeadLabel.textContent = browser.i18n.getMessage("optionMoveStylesInHead");
 loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImages");
 loadDeferredImagesMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesMaxIdleTime");
 loadDeferredImagesKeepZoomLevelLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesKeepZoomLevel");
@@ -537,6 +550,8 @@ autoSaveLabel.textContent = browser.i18n.getMessage("optionsAutoSaveSubTitle");
 miscLabel.textContent = browser.i18n.getMessage("optionsMiscSubTitle");
 helpLabel.textContent = browser.i18n.getMessage("optionsHelpLink");
 infobarTemplateLabel.textContent = browser.i18n.getMessage("optionInfobarTemplate");
+blockMixedContentLabel.textContent = browser.i18n.getMessage("optionBlockMixedContent");
+saveOriginalURLsLabel.textContent = browser.i18n.getMessage("optionSaveOriginalURLs");
 includeInfobarLabel.textContent = browser.i18n.getMessage("optionIncludeInfobar");
 confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoClose");
@@ -685,6 +700,8 @@ async function refresh(profileName) {
 	insertMetaCSPInput.checked = profileOptions.insertMetaCSP;
 	saveToClipboardInput.checked = profileOptions.saveToClipboard;
 	addProofInput.checked = profileOptions.addProof;
+	woleetKeyInput.value = profileOptions.woleetKey;
+	woleetKeyInput.disabled = !profileOptions.addProof;
 	saveToGDriveInput.checked = profileOptions.saveToGDrive;
 	saveToGitHubInput.checked = profileOptions.saveToGitHub;
 	githubTokenInput.value = profileOptions.githubToken;
@@ -699,6 +716,7 @@ async function refresh(profileName) {
 	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveWithCompanion && !saveToClipboardInput.checked;
 	compressHTMLInput.checked = profileOptions.compressHTML;
 	compressCSSInput.checked = profileOptions.compressCSS;
+	moveStylesInHeadInput.checked = profileOptions.moveStylesInHead;
 	loadDeferredImagesInput.checked = profileOptions.loadDeferredImages;
 	loadDeferredImagesMaxIdleTimeInput.value = profileOptions.loadDeferredImagesMaxIdleTime;
 	loadDeferredImagesKeepZoomLevelInput.checked = profileOptions.loadDeferredImagesKeepZoomLevel;
@@ -744,6 +762,8 @@ async function refresh(profileName) {
 	ignoredBookmarkFoldersInput.value = profileOptions.ignoredBookmarkFolders.map(folder => folder.replace(/,/g, "\\,")).join(","); // eslint-disable-line no-useless-escape
 	ignoredBookmarkFoldersInput.disabled = !profileOptions.saveCreatedBookmarks;
 	infobarTemplateInput.value = profileOptions.infobarTemplate;
+	blockMixedContentInput.checked = profileOptions.blockMixedContent;
+	saveOriginalURLsInput.checked = profileOptions.saveOriginalURLs;
 	includeInfobarInput.checked = profileOptions.includeInfobar;
 	confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
 	autoCloseInput.checked = profileOptions.autoClose;
@@ -779,6 +799,7 @@ async function update() {
 			insertMetaCSP: insertMetaCSPInput.checked,
 			saveToClipboard: saveToClipboardInput.checked,
 			addProof: addProofInput.checked,
+			woleetKey: woleetKeyInput.value,
 			saveToGDrive: saveToGDriveInput.checked,
 			saveToGitHub: saveToGitHubInput.checked,
 			githubToken: githubTokenInput.value,
@@ -788,6 +809,7 @@ async function update() {
 			saveWithCompanion: saveWithCompanionInput.checked,
 			compressHTML: compressHTMLInput.checked,
 			compressCSS: compressCSSInput.checked,
+			moveStylesInHead: moveStylesInHeadInput.checked,
 			loadDeferredImages: loadDeferredImagesInput.checked,
 			loadDeferredImagesMaxIdleTime: Math.max(loadDeferredImagesMaxIdleTimeInput.value, 0),
 			loadDeferredImagesKeepZoomLevel: loadDeferredImagesKeepZoomLevelInput.checked,
@@ -823,6 +845,8 @@ async function update() {
 			ignoredBookmarkFolders: ignoredBookmarkFoldersInput.value.replace(/([^\\]),/g, "$1 ,").split(/[^\\],/).map(folder => folder.replace(/\\,/g, ",")),
 			groupDuplicateImages: groupDuplicateImagesInput.checked,
 			infobarTemplate: infobarTemplateInput.value,
+			blockMixedContent: blockMixedContentInput.checked,
+			saveOriginalURLs: saveOriginalURLsInput.checked,
 			includeInfobar: includeInfobarInput.checked,
 			confirmInfobarContent: confirmInfobarInput.checked,
 			autoClose: autoCloseInput.checked,
@@ -910,13 +934,13 @@ async function passReferrerOnError() {
 	}
 }
 
-async function enableExternalSave() {
-	if (autoSaveExternalSaveInput.checked) {
-		autoSaveExternalSaveInput.checked = false;
+async function enableExternalSave(input) {
+	if (input.checked) {
+		input.checked = false;
 		try {
 			const permissionGranted = await browser.permissions.request({ permissions: ["nativeMessaging"] });
 			if (permissionGranted) {
-				autoSaveExternalSaveInput.checked = true;
+				input.checked = true;
 				await refreshOption();
 				if (window.chrome) {
 					window.chrome.runtime.reload();
@@ -926,7 +950,7 @@ async function enableExternalSave() {
 				await refreshOption();
 			}
 		} catch (error) {
-			autoSaveExternalSaveInput.checked = true;
+			input.checked = true;
 			await refreshOption();
 		}
 	} else {

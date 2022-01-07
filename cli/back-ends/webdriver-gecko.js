@@ -92,10 +92,8 @@ async function getPageData(driver, options) {
 		await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
 		await driver.sleep(3000);
 	}
+	scripts = scripts.replace(/globalThis/g, "window");
 	await driver.get(options.url);
-	while (await driver.getCurrentUrl() == "about:blank") {
-		// do nothing
-	}
 	if (options.browserCookies) {
 		await Promise.all(options.browserCookies.map(cookie => {
 			if (cookie.expires) {
@@ -108,18 +106,21 @@ async function getPageData(driver, options) {
 		while (await driver.getCurrentUrl() == "about:blank") {
 			// do nothing
 		}
-	}
-	scripts = scripts.replace(/globalThis/g, "window");
+	}	
 	await driver.executeScript(scripts);
 	if (options.browserWaitUntil != "domcontentloaded") {
 		let scriptPromise;
+		/*
 		if (options.browserWaitUntil == "networkidle0") {
 			scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-0\", () => arguments[0](), true)");
 		} else if (options.browserWaitUntil == "networkidle2") {
 			scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
 		} else if (options.browserWaitUntil === undefined || options.browserWaitUntil == "load") {
-			scriptPromise = driver.executeAsyncScript("if (document.readyState == \"loading\" || document.readyState == \"interactive\") { addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
+		*/
+		scriptPromise = driver.executeAsyncScript("if (document.readyState == \"loading\" || document.readyState == \"interactive\") { addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
+		/*
 		}
+		*/
 		let cancelTimeout;
 		const timeoutPromise = new Promise(resolve => {
 			const timeoutId = setTimeout(resolve, Math.max(0, options.browserLoadMaxTime - 5000));

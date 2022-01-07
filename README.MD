@@ -14,7 +14,7 @@ SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox (
  - [Integration with user scripts](#integration-with-user-scripts)
  - [SingleFileZ](#singlefilez)
  - [File format comparison](#file-format-comparison)
- - [Integration with WebKit](#integration-with-webkit)
+ - [Projects using SingleFile](#projects-using-singlefile)
  - [Privacy policy](#privacy-policy)
  - [Contributors](#contributors)
  - [Icons](#icons)
@@ -132,17 +132,22 @@ Footnotes:
 ³ Only in Safari.
 
 ⁴ An option must be enabled in the extension.
- 
-## Integration with WebKit
-Here is a Swift application (for macOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
+
+## Projects using SingleFile
+ - ArchiveBox - Open-source self-hosted web archiving: https://github.com/ArchiveBox/ArchiveBox
+ - htmls-to-datasette - Tool to index HTML files into a Sqlite database: https://github.com/pjamar/htmls-to-datasette
+ - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium note with SingleFile: https://github.com/nil0x42/singlefile2trilium
+ - SingleFileMacOS - Integration of SingleFile in a swift application using webkit: https://github.com/captaindavepdx/SingleFileMacOS
+ - Zotero Connector - Browser extension for Zotero, a tool to help you collect, organize, cite, and share your research sources: https://github.com/zotero/zotero-connectors
 
 ## Privacy Policy
 See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 
 ## Contributors
-- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit), dnknn (https://github.com/dnknn)
-- Traditional Chinese translation done by frostblazergit (https://github.com/frostblazergit)
+- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit), dnknn (https://github.com/dnknn), lqzhgood (https://github.com/lqzhgood)
+- Traditional Chinese translation done by frostblazergit (https://github.com/frostblazergit), lqzhgood (https://github.com/lqzhgood)
 - German translation done by womotroll (https://github.com/womotroll), bannmann (https://github.com/bannmann)
+- Italian translation done by Fastbyte01 (https://github.com/Fastbyte01)
 - Japanese translation done by Shitennouji（四天王寺) (https://github.com/Shitennouji)
 - Polish translation done by xesarni (https://github.com/xesarni)
 - Russian translation done by rstp14 (https://github.com/rstp14), kramola-RU (https://github.com/kramola-RU), solokot (https://github.com/solokot), TotalCaesar659 (https://github.com/TotalCaesar659)

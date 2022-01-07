@@ -15,6 +15,10 @@
 		"message": "Save page with SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
 	},
+	"menuSaveSelectedLinks": {
+		"message": "Save selected links",
+		"description": "Menu entry: 'Save selected links'"
+	},
 	"menuEditPage": {
 		"message": "Annotate the page...",
 		"description": "Menu entry: 'Annotate the page...'"
@@ -26,10 +30,6 @@
 	"menuSaveWithProfile": {
 		"message": "Save page with profile",
 		"description": "Menu entry: 'Save with profile'"
-	},
-	"menuSaveSelectedLinks": {
-		"message": "Save selected links",
-		"description": "Menu entry: 'Save selected links'"
 	},
 	"menuViewPendingSaves": {
 		"message": "View pending saves...",
@@ -159,6 +159,14 @@
 		"message": "template of the infobar content",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "block mixed content",
+		"description": "Options page label: 'block mixed content'"
+	},
+	"optionSaveOriginalURLs": {
+		"message": "save original URLs of embedded resources",
+		"description": "Options page label: 'save original URLs of embedded resources'"
+	},
 	"optionIncludeInfobar": {
 		"message": "include the infobar in the saved page",
 		"description": "Options page label: 'include the infobar in the saved page'"
@@ -270,6 +278,10 @@
 	"optionCompressCSS": {
 		"message": "compress CSS content",
 		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionMoveStylesInHead": {
+		"message": "move in the head element the styles found outside of it",
+		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
 		"message": "remove unused styles",
@@ -494,6 +506,10 @@
 	"optionsAddProofConfirm": {
 		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
+	},
+	"optionWoleetKey": {
+		"message": "access token",
+		"description": "Options page label: 'access token'"
 	},
 	"optionSaveToGDrive": {
 		"message": "upload to Google Drive",

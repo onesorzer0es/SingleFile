@@ -8,7 +8,7 @@
 		"64": "extension/ui/resources/icon_64.png",
 		"128": "extension/ui/resources/icon_128.png"
 	},
-	"version": "1.19.4",
+	"version": "1.19.24",
 	"description": "__MSG_extensionDescription__",
 	"content_scripts": [
 		{
@@ -30,6 +30,7 @@
 			],
 			"run_at": "document_start",
 			"js": [
+				"dist/chrome-browser-polyfill.js",
 				"dist/single-file-bootstrap.js",
 				"dist/extension-bootstrap.js",
 				"dist/web/infobar-web.js"

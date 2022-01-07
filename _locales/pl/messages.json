@@ -159,6 +159,14 @@
 		"message": "szablon zawartości paska informacyjnego",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "blokuj zawartość mieszaną",
+		"description": "Options page label: 'block mixed content'"
+	},
+	"optionSaveOriginalURLs": {
+		"message": "zapisuj oryginalne adresy URL zasobów osadzonych",
+		"description": "Options page label: 'save original URLs of embedded resources'"
+	},
 	"optionIncludeInfobar": {
 		"message": "dołączaj pasek informacyjny do zapisanej strony",
 		"description": "Options page label: 'include the infobar in the saved page'"
@@ -270,6 +278,10 @@
 	"optionCompressCSS": {
 		"message": "kompresuj zawartość CSS",
 		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionMoveStylesInHead": {
+		"message": "przenoś do elementu head style znajdujące się poza nim",
+		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
 		"message": "usuwaj nieużywane style",
@@ -495,6 +507,10 @@
 		"message": "Potwierdź, że zezwalasz SingleFile na wysyłanie do interfejsu API Woleet skrótu SHA256 każdej strony, którą chcesz zapisać. Więcej informacji na temat tej funkcji można znaleźć na stronie pomocy lub klikając znak zapytania obok opcji.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
+	"optionWoleetKey": {
+		"message": "token dostępu",
+		"description": "Options page label: 'access token'"
+	},
 	"optionSaveToGDrive": {
 		"message": "przesyłaj na Dysk Google",
 		"description": "Options page label: 'upload to Google Drive'"
@@ -719,13 +735,13 @@
 		"message": "Anuluj wszystkie",
 		"description": "Pending saves button 'Cancel all'"
 	},
-	"pendingsTitleTitle": {
-		"message": "Tytuł",
-		"description": "Title of the first column in the table of the pending saves 'Title'"
-	},
 	"pendingsURLTitle": {
 		"message": "Adres URL",
 		"description": "Title of the first column in the table of the pending saves 'URL'"
+	},
+	"pendingsTitleTitle": {
+		"message": "Tytuł",
+		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsStatusTitle": {
 		"message": "status",
